@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do List</title>
+</head>
+
+     <style>
+        h1 {
+            position: absolute;
+            left: 42%;
+            top: 30px;
+        }
+
+        #input {
+            position: absolute;
+            left: 20%;
+            top: 120px;
+            width: 700px;
+            height: 20px;
+            border: 1px rgb(0, 183, 255) solid;
+            font-family: monospace;
+        }
+
+        #enter {
+            position: absolute;
+            left: 72.4%;
+            top: 120px;
+            border-left: none;
+            border-bottom: 1px rgb(0, 183, 255) solid;
+            border-top: 1px rgb(0, 183, 255) solid;
+            border-right: 1px rgb(0, 183, 255) solid;
+            color: rgb(0, 183, 255);
+            width: 70px;
+            height: 24px;
+        }
+
+        #enter:hover {
+            cursor: pointer;
+        }
+
+        #div {
+            position: absolute;
+            left: 17%;
+            top: 180px;
+            width: 770px;
+            font-family: monospace;
+            font-size: 18px;
+        }
+
+/* The parent container for all toasts */
+#toast-container {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column; /* Stack toasts vertically */
+    gap: 10px;              /* Space between toasts */
+    z-index: 1000;
+}
+
+/* Style for individual toast items */
+.toast {
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: sans-serif;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    
+    /* Animation: Slide in, then stay, then slide out */
+    animation: slideInRight 0.5s, slideOutRight 0.5s 2.5s forwards;
+}
+
+.toast.success{
+    background-color: #2ecc71;
+}
+
+.toast.warning{
+    background-color: #e74c3c;
+}
+@keyframes slideInRight {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+}
+    </style>
+
+<body>
+    <div class="container">
+          <h2>My To-Do List</h2>
+        <div>
+            <input id="taskInput" type="text" placeholder="Add a new task here....">
+            <input id="submitTask" type="button" value="Add">
+        </div>
+        <div>
+            <ul id="taskList">
+ <!-- Tasks will be added here by JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+</body>
+<script>
+    const taskInput = document.getElementById("taskInput")
+    const submitTask = document.getElementById("submitTask")
+    const taskList = document.getElementById("taskList")
+    const container = document.getElementById("toast-container")
+     
+    function showToast(message,type){
+        const newToast = document.createElement("div");
+        newToast.classList.add("toast");
+
+        if(type === "success"){
+            newToast.classList.add("success");
+        }
+        else{
+            newToast.classList.add("warning");
+        }
+        newToast.textContent = message
+        container.appendChild(newToast);
+
+        setTimeout(() => {
+            newToast.remove();
+        }, 3000);
+    }
+
+   submitTask.addEventListener('click', function(e){
+
+    //    if(taskInput.value.trim() == ""){
+    //      alert("Please enter a task!");
+    //      return;
+    //    }
+
+          if(taskInput.value.trim() == ""){
+        showToast("⚠️ Please enter a task first!","warning")
+         return;
+       }
+       else{
+             const li = document.createElement("li");
+
+        li.textContent = taskInput.value
+            taskList.appendChild(li);
+           
+            showToast("✅ Task add scussesfully", "success")
+           // taskInput.value = "";
+        
+       }
+        taskInput.value = "";
+       
+       
+   })
+</script>
+</html>

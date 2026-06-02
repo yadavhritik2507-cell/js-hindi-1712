@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .range-input {
+        /* pointer-events: none; */
+           cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    
+    Minimun Price 
+    <div class = "range-input" >
+    <input class = "min-range" type="range" max="10000" min="2000" value="2500" step="1">
+    <input class = "price-input" type="number">
+    <span class = "show-value" ></span>
+    </div>
+
+     
+</body>
+<script>
+    const rangeinput = document.querySelector(".min-range")
+    const PriceInputValue = document.querySelector('.price-input');
+    // const Value = document.querySelector('.show-value');
+          const MIN = rangeinput.getAttribute("min");
+               const MAX = rangeinput.getAttribute("max");
+
+              rangeinput.addEventListener("input",()=>{
+
+                const Price = rangeinput.value;
+        const MIN_VALUE = parseInt(MIN);
+
+         if(Price < MIN_VALUE){
+             Price = MIN_VALUE;
+         }
+                PriceInputValue.value = `${Price}`;
+                })
+
+ 
+    PriceInputValue.addEventListener("input",function(e){
+      
+        const Price = e.target.value;
+
+        const MIN_VALUE = parseInt(MIN);
+
+        if(Price < MIN_VALUE){
+             Price = MIN_VALUE;
+         }
+
+        rangeinput.value = `${Price}`;
+        PriceInputValue.value = `${Price}`;
+
+            
+    })
+
+ //   Value.innerHTML = rangeinput.getAttribute("min");
+   //   Value.innerHTML = `MAX VALUE = ${rangeinput.getAttribute("max")}`
+</script>
+</html>
