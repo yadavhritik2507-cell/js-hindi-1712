@@ -6,22 +6,52 @@
     <title> Async JS </title>
 </head>
 <body>
-    <h1 id="">Chai aur code</h1>
+    <h1 id="heading">Chai aur code</h1>
+    <button id="start">start</button>
     <button id="stop">stop</button>
 </body>
 <script>
-  const changeText = function(){
-    document.querySelector('h1').innerHTML = "Hritik Love JS language";
-  }
-  
-setInterval(changeText,5000);
 
-  // const s = document.querySelector('stop');
-  //   s.addEventListener('click',function(){
-        
-  //   })
+  const container = document.querySelector("#heading");
+  let count = 0;
+  let intervalID = null;
+  
+
+const myfunction = function showMsg() {
+    const newMsg = document.createElement("h4");
+    newMsg.classList.add("heading")
+    newMsg.textContent = "best JS series1";
+    container.appendChild(newMsg);
+      count++;
+      console.log(count);
+
+      if( count >= 5 && intervalID ){
+        clearInterval(intervalID);
+
+      }   
+};
+
+ function startInterval(){
+     if(intervalID) clearInterval(intervalID);
+     count = 0;
     
+     intervalID = setInterval(myfunction,2000)
     
+     
+  }
+
+  const startAgain = document.querySelector("#start");
+
+  startAgain.addEventListener('click',function(){
+    console.log("start")
+      startInterval();
+
+  });
+
+
+
+  startInterval();
+
 
 </script>
 </html>
