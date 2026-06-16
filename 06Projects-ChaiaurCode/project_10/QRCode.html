@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api call</title>
+</head>
+<body>
+    <div id="container">
+        <button id="fetchBtn"> Profile </button>
+            <img scr="" alt="">
+            <label id="follower"></label>
+    </div>
+</body>
+<script>
+    const requrestUrl = 'https://api.github.com/users/hiteshchoudhary'
+    const fetchBtn = document.querySelector("#fetchBtn")
+
+const xhr = new XMLHttpRequest()
+    xhr.open('GET',requrestUrl)
+    fetchBtn.addEventListener('click',function(){
+             
+    xhr.onreadystatechange = function(){
+            console.log(xhr.readyState);
+            if(xhr.readyState === 4){
+
+                const data = JSON.parse(this.responseText);
+
+                console.log(typeof data);
+                console.log(data);
+
+                 const followerGet = data.followers
+                 
+                 const img = document.querySelector("img")
+                
+                 const follow = document.querySelector('#follower')
+                 
+                 img.src = data.avatar_url
+
+                 follow.innerHTML = `Follower Data ${followerGet}`
+            }
+    }
+    xhr.send();
+    })
+   
+</script>
+</html>
